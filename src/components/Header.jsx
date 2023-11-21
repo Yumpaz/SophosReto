@@ -11,7 +11,6 @@ const Header = () => {
         sx={{
           display: "flex",
           justifyContent: "start",
-          background: "white",
           minHeight: "100vh",
           minWidth: "100vh",
         }}
@@ -46,6 +45,22 @@ const Header = () => {
         >
           <Typography variant="h8" sx={{ color: "white" }}>
             Villanos
+          </Typography>
+        </Button>
+        <Button
+          onClick={() => {
+            navigate("/Batallas");
+          }}
+          sx={{
+            padding: "7px 15px",
+            margin: "0 8px",
+            background: "#233EAE",
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.075)",
+            borderRadius: "20px",
+          }}
+        >
+          <Typography variant="h8" sx={{ color: "white" }}>
+            Batallas
           </Typography>
         </Button>
       </Toolbar>
