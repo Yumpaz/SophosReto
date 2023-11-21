@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
-import { Box, Button, Modal } from "@mui/material";
+import { Box, Button, Modal, Stack, TextField } from "@mui/material";
 import Origen from "../components/Origen";
 
 function createData(nombre, edad, sexo, habilidades, debilidades, poder, origen) {
@@ -41,9 +41,39 @@ const VillanosPage = () => {
   };
   const [selectedRow, setSelectedRow] = useState("");
   const handleClose = () => setOpen(false);
+  const [searchNameQuery, setSearchNameQuery] = useState("");
+  const [searchWeaknessQuery, setSearchWeaknessQuery] = useState("");
+  const [searchOriginQuery, setSearchOriginQuery] = useState("");
+  const filteredRows = rows.filter((row) => {
+    return (
+      row.nombre.toLowerCase().includes(searchNameQuery.toLowerCase()) &&
+      row.debilidades.toLowerCase().includes(searchWeaknessQuery.toLowerCase()) &&
+      row.origen.toLowerCase().includes(searchOriginQuery.toLowerCase())
+    );
+  });
   
   return (
     <Container sx={{ paddingTop: 15 }}>
+      <Stack direction="row" spacing={2} sx={{ marginBottom: 2 }}>
+        <TextField
+          label="Buscar por nombre"
+          variant="outlined"
+          value={searchNameQuery}
+          onChange={(e) => setSearchNameQuery(e.target.value)}
+        />
+        <TextField
+          label="Buscar por debilidad"
+          variant="outlined"
+          value={searchWeaknessQuery}
+          onChange={(e) => setSearchWeaknessQuery(e.target.value)}
+        />
+        <TextField
+          label="Buscar por origen"
+          variant="outlined"
+          value={searchOriginQuery}
+          onChange={(e) => setSearchOriginQuery(e.target.value)}
+        />
+      </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead sx={{background: "#EBEBEB"}}>
@@ -58,7 +88,7 @@ const VillanosPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {filteredRows.map((row) => (
               <TableRow
                 key={row.nombre}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

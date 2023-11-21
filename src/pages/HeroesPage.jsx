@@ -7,14 +7,32 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Stack, TextField } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import Relaciones from "../components/Relaciones";
 import Patrocinadores from "../components/Patrocinadores";
 import Agenda from "../components/Agenda";
 
-function createData(nombre, edad, sexo, habilidades, debilidades, relaciones, patrocinadores, agenda) {
-    return { nombre, edad, sexo, habilidades, debilidades, relaciones, patrocinadores, agenda};
+function createData(
+  nombre,
+  edad,
+  sexo,
+  habilidades,
+  debilidades,
+  relaciones,
+  patrocinadores,
+  agenda
+) {
+  return {
+    nombre,
+    edad,
+    sexo,
+    habilidades,
+    debilidades,
+    relaciones,
+    patrocinadores,
+    agenda,
+  };
 }
 
 function createRelacion(nombre, relacion) {
@@ -664,9 +682,42 @@ const HeroesPage = () => {
   const handleClose = () => setOpen(false);
   const handleClose2 = () => setOpen2(false);
   const handleClose3 = () => setOpen3(false);
+  const [searchNameQuery, setSearchNameQuery] = useState("");
+  const [searchAbilityQuery, setSearchAbilityQuery] = useState("");
+  const [searchRelationQuery, setSearchRelationQuery] = useState("");
+  let filteredRows = rows.filter((row) => {
+    const relacionesMatch = row.relaciones.some((relacion) =>
+      relacion.nombre.toLowerCase().includes(searchRelationQuery.toLowerCase())
+    );
+    return (
+      row.nombre.toLowerCase().includes(searchNameQuery.toLowerCase()) &&
+      row.habilidades.toLowerCase().includes(searchAbilityQuery.toLowerCase()) &&
+      relacionesMatch
+    );
+  });
 
   return (
     <Container sx={{ paddingTop: 15 }}>
+      <Stack direction="row" spacing={2} sx={{ marginBottom: 2 }}>
+        <TextField
+          label="Buscar por nombre"
+          variant="outlined"
+          value={searchNameQuery}
+          onChange={(e) => setSearchNameQuery(e.target.value)}
+        />
+        <TextField
+          label="Buscar por habilidad"
+          variant="outlined"
+          value={searchAbilityQuery}
+          onChange={(e) => setSearchAbilityQuery(e.target.value)}
+        />
+        <TextField
+          label="Buscar por relación"
+          variant="outlined"
+          value={searchRelationQuery}
+          onChange={(e) => setSearchRelationQuery(e.target.value)}
+        />
+      </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead sx={{ background: "#EBEBEB" }}>
@@ -682,7 +733,7 @@ const HeroesPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {filteredRows.map((row) => (
               <TableRow
                 key={row.nombre}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -702,7 +753,7 @@ const HeroesPage = () => {
                 </TableCell>
                 <TableCell align="center">
                   {<Button onClick={() => handleOpen3(row)}>Ver</Button>}
-                  </TableCell>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
