@@ -4,12 +4,12 @@ import React from 'react'
 const Origen = ({origen}) => {
   return (
     <Container sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-        <Box sx={{display: "flex", justifyContent: "center", background: "white"}}>
+        <Box sx={{display: "flex", justifyContent: "center", background: "#EBEBEB"}}>
             <Typography variant="h8" sx={{ margin: "10px"}}>Historia de Origen</Typography>
         </Box>
         <Divider orientation="horizontal" flexItem />
         <Box sx={{display: "flex", justifyContent: "center", background: "white"}}>
-            <Typography variant="h8" sx={{ margin: "10px"}}>{origen}</Typography>
+            <Typography variant="h8" sx={{ textAlign: "justify", margin: "10px"}}>{origen}</Typography>
         </Box>
     </Container>
   )

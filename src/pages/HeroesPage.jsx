@@ -695,6 +695,15 @@ const HeroesPage = () => {
       relacionesMatch
     );
   });
+  const [sortOrder, setSortOrder] = useState("asc");
+  const handleSort = () => {
+    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newSortOrder);
+    filteredRows.sort((a, b) => {
+      const compareValue = sortOrder === "asc" ? a.edad - b.edad : b.edad - a.edad;
+      return compareValue;
+    });
+  };
 
   return (
     <Container sx={{ paddingTop: 15 }}>
@@ -717,6 +726,9 @@ const HeroesPage = () => {
           value={searchRelationQuery}
           onChange={(e) => setSearchRelationQuery(e.target.value)}
         />
+        <Button onClick={handleSort} variant="contained">
+          Ordenar por Edad {sortOrder === "asc" ? "ascendente" : "descendente"}
+        </Button>
       </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -765,7 +777,7 @@ const HeroesPage = () => {
             position: "absolute",
             top: "50%",
             left: "50%",
-            transform: "translate(-50%, -50%)",
+            transform: "translate(-50%, -50%)"
           }}
         >
           <Relaciones relaciones={selectedRow.relaciones} />

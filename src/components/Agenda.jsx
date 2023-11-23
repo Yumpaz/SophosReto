@@ -12,8 +12,8 @@ import { Box, Typography } from "@mui/material";
 const Agenda = ({agenda}) => {
   return (
     <Container sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-        <Box sx={{display: "flex", justifyContent: "center", background: "white"}}>
-            <Typography variant="h8">Horas libres</Typography>
+        <Box sx={{display: "flex", justifyContent: "center", background: "#EBEBEB"}}>
+            <Typography variant="h8" sx={{margin: 2}}>Horas libres</Typography>
         </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
